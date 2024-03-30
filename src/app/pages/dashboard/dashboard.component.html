@@ -1,0 +1,46 @@
+<header>
+    Hotel Management System (HMS - Antrix)
+</header>
+
+<main>
+    <aside>
+
+        <div 
+            [class.db-tab-button-selected]="dbTabActive === dbTabBooking" 
+            [class.db-tab-button]="dbTabActive !== dbTabBooking" 
+            (click)="tabClicked(dbTabBooking)">
+            Booking
+        </div>
+
+        <div 
+            [class.db-tab-button-selected]="dbTabActive === dbTabRoom" 
+            [class.db-tab-button]="dbTabActive !== dbTabRoom" 
+            (click)="tabClicked(dbTabRoom)">
+            Room
+        </div>
+
+        <div 
+            [class.db-tab-button-selected]="dbTabActive === dbTabRoomCategory" 
+            [class.db-tab-button]="dbTabActive !== dbTabRoomCategory" 
+            (click)="tabClicked(dbTabRoomCategory)">
+            Room Category
+        </div>
+
+        <div 
+            [class.db-tab-button-selected]="dbTabActive === dbTabAddon" 
+            [class.db-tab-button]="dbTabActive !== dbTabAddon" 
+            (click)="tabClicked(dbTabAddon)">
+            Addon
+        </div>
+
+    </aside>
+
+    <section>
+
+        <app-booking [hidden]="dbTabActive !== dbTabBooking"></app-booking>
+        <app-room [hidden]="dbTabActive !== dbTabRoom"></app-room>
+        <app-addon [hidden]="dbTabActive !== dbTabRoomCategory"></app-addon>
+        <app-room-category [hidden]="dbTabActive !== dbTabAddon"></app-room-category>
+
+    </section>
+</main>

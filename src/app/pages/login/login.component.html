@@ -1,0 +1,15 @@
+<main>
+    <form [formGroup]="loginForm">
+        <div class="login-form">
+            <div class="login-group login-label-group">
+                <label for="login-input-username">Username: </label>
+                <label for="login-input-password">Password: </label>
+            </div>
+            <div class="login-group login-input-group">
+                <input type="text" id="login-input-username" placeholder="Username" formControlName="username">
+                <input type="password" id="login-input-password" placeholder="Password" formControlName="password">
+            </div>
+        </div>
+        <button [disabled]="!loginForm.valid" class="login-button">Login</button>
+    </form>
+</main>

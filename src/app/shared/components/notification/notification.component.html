@@ -1,0 +1,9 @@
+<div class="hms-notification">
+    <div 
+    class="notification" 
+    *ngFor="let value of notificationService.notifications" 
+    [class.error]="value.type === error" 
+    [class.success]="value.type === success">
+        {{value.msg}}
+    </div>
+</div>

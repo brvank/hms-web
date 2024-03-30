@@ -1,0 +1,28 @@
+.hms-notification{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding-right: 16px;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notification{
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.error{
+    color: red;
+    background-color: rgb(255, 222, 222);
+    border: 1px solid red;
+}
+
+.success{
+    color: green;
+    background-color: rgb(222, 255, 222);
+    border: 1px solid green;
+}

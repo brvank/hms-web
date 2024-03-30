@@ -1,0 +1,33 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-form{
+    display: flex;
+    gap: 8px;
+}
+
+.login-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-label-group{
+    flex: 1;
+}
+
+.login-input-group{
+    flex: 2;
+}
