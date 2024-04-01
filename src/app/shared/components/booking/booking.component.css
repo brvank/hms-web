@@ -1,0 +1,50 @@
+.bk-container{
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+}
+
+.bk-paginator{
+    height: 24px;
+    background-color: red;
+}
+
+.bk-table{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bk-table-head{
+    display: flex;
+    margin-bottom: 8px;
+    gap: 1px;
+}
+
+.bk-table-data{
+    display: flex;
+}
+
+.bk-heading{
+    flex: 0 0 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cacaca;
+    border-bottom: 1px solid black;
+}
+
+.bk-data{
+    flex: 0 0 180px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    border-bottom: 1px solid #cacaca;
+    padding: 8px;
+}
+
+.bk-controls{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}

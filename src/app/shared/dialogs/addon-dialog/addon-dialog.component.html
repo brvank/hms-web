@@ -1,0 +1,31 @@
+<div class="dialog-container">
+
+    <header>
+        <p>
+            <span>{{actionAdd ? 'Add' : 'Update'}}</span> Addon
+        </p>
+
+        <button (click)="closeDialog()">Close</button>
+    </header>
+
+    <form [formGroup]="addonFormGroup">
+        <main>
+        
+            <div class="labels">
+                <label for="name">Name: </label>
+                <label for="info">Info: </label>
+                <label for="price">Price: </label>
+            </div>
+    
+            <div class="inputs">
+                <input formControlName="name" type="text" id="name">
+                <input formControlName="info" type="text" id="info">
+                <input formControlName="price" type="number" id="price">
+            </div>
+    
+        </main>
+    </form>
+
+    <button [disabled]="!addonFormGroup.valid" (click)="saveForm()"><span>{{actionAdd ? 'Add' : 'Update'}}</span></button>
+
+</div>

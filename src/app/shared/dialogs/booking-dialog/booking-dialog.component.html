@@ -1,0 +1,68 @@
+<div class="dialog-container">
+
+    <header>
+        <p>
+            <span>{{actionAdd ? 'Add' : 'Update'}}</span> Addon
+        </p>
+
+        <button (click)="closeDialog()">Close</button>
+    </header>
+
+    <form [formGroup]="bookingFormGroup">
+        <main>
+
+            <div class="li-container">
+                <div class="label-input">
+                    <label for="guest_name">Guest Name: </label>
+                    <input formControlName="guest_name" type="text" id="guest_name">
+                </div>
+                <div class="label-input">
+                    <label for="phone_number">Phone Number: </label>
+                    <input formControlName="phone_number" type="number" id="phone_number">
+                </div>
+                <div class="label-input">
+                    <label for="date_time_check_in">Check In Date/Time: </label>
+                    <input formControlName="date_time_check_in" type="datetime-local" id="date_time_check_in">
+                </div>
+                <div class="label-input">
+                    <label for="date_time_check_out">Check Out Date/Time: </label>
+                    <input formControlName="date_time_check_out" type="datetime-local" id="date_time_check_out">
+
+                </div>
+                <div class="label-input">
+                    <label for="person_count">Person Count: </label>
+                    <input formControlName="person_count" type="number" id="person_count">
+
+                </div>
+                <div class="label-input">
+                    <label for="room_id">Room: </label>
+                    <select formControlName="room_id" id="room-category">
+                        <option value="">--Select Room--</option>
+                        <option *ngFor="let rc of rooms" [value]="rc.room_id">{{rc.room_number}}</option>
+                    </select>
+
+                </div>
+                <div class="label-input">
+                    <label for="total_price">Total Price: </label>
+                    <input formControlName="total_price" type="number" id="total_price" readonly>
+
+                </div>
+                <div class="label-input">
+                    <label for="advance_amount">Amount Paid: </label>
+                    <input formControlName="advance_amount" type="number" id="advance_amount">
+
+                </div>
+                <div class="label-input">
+                    <label for="gst">GST(%): </label>
+                    <input formControlName="gst" type="number" id="gst">
+
+                </div>
+            </div>
+
+        </main>
+    </form>
+
+    <button [disabled]="!bookingFormGroup.valid" (click)="saveForm()"><span>{{actionAdd ? 'Add' :
+            'Update'}}</span></button>
+
+</div>

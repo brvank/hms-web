@@ -1,1 +1,26 @@
-<p>addon works!</p>
+<div class="addon-container">
+
+    <div class="addon-controls">
+        <button (click)="addAddon()"> + Addon </button>
+        <button (click)="getAddons()"> Refresh </button>
+    </div>
+
+    <div class="addon-table">
+        <div class="addon-table-head">
+            <div class="addon-heading">Addon ID</div>
+            <div class="addon-heading">Name</div>
+            <div class="addon-heading">Info</div>
+            <div class="addon-heading">Price</div>
+            <div class="addon-heading">Action</div>
+        </div>
+
+        <div class="addon-table-data" *ngFor="let addon of addonService.addons">
+            <div class="addon-data">{{addon?.addon_id}}</div>
+            <div class="addon-data">{{addon?.addon_name}}</div>
+            <div class="addon-data">{{addon?.addon_info}}</div>
+            <div class="addon-data">{{addon?.addon_price}}</div>
+            <div class="addon-data"><button (click)="updateAddon(addon)"> Edit </button></div>
+        </div>
+    </div>
+
+</div>

@@ -10,6 +10,6 @@
                 <input type="password" id="login-input-password" placeholder="Password" formControlName="password">
             </div>
         </div>
-        <button [disabled]="!loginForm.valid" class="login-button">Login</button>
+        <button [disabled]="!loginForm.valid" class="login-button" (click)="login()">Login</button>
     </form>
 </main>

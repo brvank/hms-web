@@ -37,10 +37,10 @@
 
     <section>
 
-        <app-booking [hidden]="dbTabActive !== dbTabBooking"></app-booking>
-        <app-room [hidden]="dbTabActive !== dbTabRoom"></app-room>
-        <app-addon [hidden]="dbTabActive !== dbTabRoomCategory"></app-addon>
-        <app-room-category [hidden]="dbTabActive !== dbTabAddon"></app-room-category>
+        <app-booking class="app-models" *ngIf="dbTabActive === dbTabBooking"></app-booking>
+        <app-room class="app-models" *ngIf="dbTabActive === dbTabRoom"></app-room>
+        <app-addon class="app-models" *ngIf="dbTabActive === dbTabAddon"></app-addon>
+        <app-room-category class="app-models" *ngIf="dbTabActive === dbTabRoomCategory"></app-room-category>
 
     </section>
 </main>

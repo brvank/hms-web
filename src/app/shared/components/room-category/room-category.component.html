@@ -1,1 +1,26 @@
-<p>room-category works!</p>
+<div class="rc-container">
+
+    <div class="rc-controls">
+        <button (click)="addRoomCategory()"> + Room Category </button>
+        <button (click)="getRoomCategories()"> Refresh </button>
+    </div>
+
+    <div class="rc-table">
+        <div class="rc-table-head">
+            <div class="rc-heading">Room Category ID</div>
+            <div class="rc-heading">Name</div>
+            <div class="rc-heading">Price</div>
+            <div class="rc-heading">Info</div>
+            <div class="rc-heading">Action</div>
+        </div>
+
+        <div class="rc-table-data" *ngFor="let rc of roomCategoryService.roomCategories">
+            <div class="rc-data">{{rc?.room_category_id}}</div>
+            <div class="rc-data">{{rc?.room_category_name}}</div>
+            <div class="rc-data">{{rc?.room_category_price}}</div>
+            <div class="rc-data">{{rc?.room_category_info}}</div>
+            <div class="rc-data"><button (click)="updateRoomCategory(rc)"> Edit </button></div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,45 @@
+.room-container{
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+}
+
+.room-table{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-table-head{
+    display: flex;
+    margin-bottom: 8px;
+    gap: 1px;
+}
+
+.room-table-data{
+    display: flex;
+}
+
+.room-heading{
+    flex: 0 0 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cacaca;
+    border-bottom: 1px solid black;
+}
+
+.room-data{
+    flex: 0 0 180px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    border-bottom: 1px solid #cacaca;
+    padding: 8px;
+}
+
+.room-controls{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}

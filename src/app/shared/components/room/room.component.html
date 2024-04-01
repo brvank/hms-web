@@ -1,1 +1,24 @@
-<p>room works!</p>
+<div class="room-container">
+
+    <div class="room-controls">
+        <button (click)="addRoom()"> + Room </button>
+        <button (click)="getRooms()"> Refresh </button>
+    </div>
+
+    <div class="room-table">
+        <div class="room-table-head">
+            <div class="room-heading">Room ID</div>
+            <div class="room-heading">Number</div>
+            <div class="room-heading">Category ID</div>
+            <div class="room-heading">Availability</div>
+        </div>
+
+        <div class="room-table-data" *ngFor="let room of roomService.rooms">
+            <div class="room-data">{{room?.room_id}}</div>
+            <div class="room-data">{{room?.room_number}}</div>
+            <div class="room-data">{{room?.room_category_id}}</div>
+            <div class="room-data" (click)="checkAvailability(room)"><button> Check </button></div>
+        </div>
+    </div>
+
+</div>

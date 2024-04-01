@@ -1,1 +1,38 @@
-<p>booking works!</p>
+<div class="bk-container">
+
+    <div class="bk-controls">
+        <button (click)="addBooking()"> + Booking </button>
+        <button (click)="getBookings()"> Refresh </button>
+    </div>
+
+    <div class="bk-table">
+        <div class="bk-table-head">
+            <div class="bk-heading">Booking ID</div>
+            <div class="bk-heading">Guest Name</div>
+            <div class="bk-heading">Phone Number</div>
+            <div class="bk-heading">Check In Date/Time</div>
+            <div class="bk-heading">Check Out Date/Time</div>
+            <div class="bk-heading">Person Count</div>
+            <div class="bk-heading">Total Price</div>
+            <div class="bk-heading">Amount Paid</div>
+            <div class="bk-heading">Action</div>
+        </div>
+
+        <div class="bk-table-data" *ngFor="let booking of bookingService.bookings">
+            <div class="bk-data">{{booking?.booking_id}}</div>
+            <div class="bk-data">{{booking?.guest_name}}</div>
+            <div class="bk-data">{{booking?.phone_number}}</div>
+            <div class="bk-data">{{booking?.date_time_check_in}}</div>
+            <div class="bk-data">{{booking?.date_time_check_out}}</div>
+            <div class="bk-data">{{booking?.person_count}}</div>
+            <div class="bk-data">{{booking?.total_price}}</div>
+            <div class="bk-data">{{booking?.advance_amount}}</div>
+            <div class="bk-data"><button (click)="udpateBooking(booking)"> Edit </button></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bk-paginator">
+    
+</div>
