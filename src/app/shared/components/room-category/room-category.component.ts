@@ -31,13 +31,14 @@ export class RoomCategoryComponent {
     this.loaderService.showLoading()
     this.roomCategoryService.get().subscribe({
       next: (res) => {
+        this.loaderService.hideLoading();
+
         if (res?.data) {
           this.roomCategoryService.roomCategories = [];
           for (let i = 0; i < res.data.length; i++) {
             this.roomCategoryService.roomCategories.push(res.data[i])
           }
 
-          this.loaderService.hideLoading();
         } else {
           this.notificationService.error('Something went wrong!')
         }

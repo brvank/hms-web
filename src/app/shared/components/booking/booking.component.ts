@@ -8,6 +8,7 @@ import { BookingDialogComponent } from '../../dialogs/booking-dialog/booking-dia
 import { RoomService } from '../../../core/services/room.service';
 import { Booking } from '../../../core/interfaces/booking.interface';
 import { RoomCategoryService } from '../../../core/services/room-category.service';
+import { AddonService } from '../../../core/services/addon.service';
 
 @Component({
   selector: 'app-booking',
@@ -24,6 +25,7 @@ export class BookingComponent {
     public bookingService: BookingService,
     private roomService: RoomService,
     private roomCategoryService: RoomCategoryService,
+    private addonService: AddonService,
     private dialog: MatDialog,
     private loaderService: LoaderService,
     private notificationService: NotificationService
@@ -31,17 +33,37 @@ export class BookingComponent {
     
   }
 
+  prev(){
+    if(this.bookingService.start > 0 && this.bookingService.start - this.bookingService.size >= 0){
+      this.bookingService.start -= this.bookingService.size
+
+      this.getBookings()
+    }
+  }
+
+  next(){
+    if(this.bookingService.total != 0 && this.bookingService.start + this.bookingService.size < this.bookingService.total){
+      this.bookingService.start += this.bookingService.size
+
+      this.getBookings()
+    }
+  }
+
   getBookings(){
     this.loaderService.showLoading()
     this.bookingService.get().subscribe({
       next: (res) => {
+        this.loaderService.hideLoading();
+
         if (res?.data && res?.data?.result) {
+
+          this.bookingService.total = res.data.count
+
           this.bookingService.bookings = [];
           for (let i = 0; i < res.data.result.length; i++) {
             this.bookingService.bookings.push(res.data.result[i])
           }
           
-          this.loaderService.hideLoading();
         } else {
           this.notificationService.error('Something went wrong!')
         }

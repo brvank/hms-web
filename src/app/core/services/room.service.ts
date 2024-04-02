@@ -12,6 +12,7 @@ export class RoomService {
   private baseUrl = environment.baseUrl
   private getEndPoint = 'api/v1/room/get'
   private addEndPoint = 'api/v1/room/add'
+  private getAvailabilityEndPoint = 'api/v1/room/availability'
 
   rooms: Room[] = []
 
@@ -20,6 +21,13 @@ export class RoomService {
   get(): Observable<any>{
 
     const url = this.baseUrl + this.getEndPoint
+
+    return this.http.get(url);
+  }
+
+  getAvailability(room_id: number): Observable<any>{
+
+    const url = this.baseUrl + this.getAvailabilityEndPoint + `/${room_id}`
 
     return this.http.get(url);
   }

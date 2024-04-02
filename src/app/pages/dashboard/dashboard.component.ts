@@ -13,6 +13,7 @@ import { LoaderService } from '../../core/services/loader.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
+import { BookingSearchComponent } from '../../shared/components/booking-search/booking-search.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,7 @@ import { NotificationService } from '../../core/services/notification.service';
     BookingComponent,
     RoomComponent,
     RoomCategoryComponent,
+    BookingSearchComponent,
     LoaderComponent,
     CommonModule
   ],
@@ -33,6 +35,7 @@ export class DashboardComponent implements OnInit {
   readonly dbTabRoom = DbTab.Room
   readonly dbTabRoomCategory = DbTab.RoomCategory
   readonly dbTabAddon = DbTab.Addon
+  readonly dbTabBookingSearch = DbTab.BookingSearch
 
   dbTabActive: DbTab = this.dbTabBooking
 
@@ -83,13 +86,12 @@ export class DashboardComponent implements OnInit {
 
                 this.addonService.get().subscribe({
                   next: (res) => {
+                    this.loaderService.hideLoading();
                     if (res?.data) {
                       this.addonService.addons = [];
                       for (let i = 0; i < res.data.length; i++) {
                         this.addonService.addons.push(res.data[i])
                       }
-
-                      this.loaderService.hideLoading();
 
                       this.getBookings(0, 10);
                     } else {
@@ -140,13 +142,17 @@ export class DashboardComponent implements OnInit {
     this.loaderService.showLoading();
     this.bookingService.get().subscribe({
       next: (res) => {
+        this.loaderService.hideLoading();
+
         if (res?.data && res?.data?.result) {
+
+          this.bookingService.total = res.data.count
+
           this.bookingService.bookings = [];
           for (let i = 0; i < res.data.result.length; i++) {
             this.bookingService.bookings.push(res.data.result[i])
           }
           
-          this.loaderService.hideLoading();
         } else {
           this.notificationService.error('Something went wrong!')
         }

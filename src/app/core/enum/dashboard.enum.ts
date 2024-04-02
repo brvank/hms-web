@@ -2,5 +2,6 @@ export enum DbTab{
     Booking,
     Room,
     Addon,
-    RoomCategory
+    RoomCategory,
+    BookingSearch
 }

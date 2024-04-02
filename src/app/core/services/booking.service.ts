@@ -14,10 +14,11 @@ export class BookingService {
   private getEndPoint = 'api/v1/booking/get'
   private addEndPoint = 'api/v1/booking/add'
   private updateEndPoint = 'api/v1/booking/update'
-  private addAddonEndPoint = 'api/v1/booking/addOn/'
+  private addAddonEndPoint = 'api/v1/booking/addOn'
 
   start: number = 0
   size: number = 10
+  total: number = 0
 
   bookings: Booking[] = []
 
@@ -26,6 +27,13 @@ export class BookingService {
   get(): Observable<any>{
 
     const url = this.baseUrl + this.getEndPoint + `?start=${this.start}&size=${this.size}`
+
+    return this.http.get(url);
+  }
+
+  getById(bookingId: number): Observable<any>{
+
+    const url = this.baseUrl + this.getEndPoint + `/${bookingId}`
 
     return this.http.get(url);
   }
@@ -44,9 +52,9 @@ export class BookingService {
     return this.http.put(url, booking);
   }
 
-  addAddon(booking: Booking, addon: Addon): Observable<any>{
+  addAddon(booking_id: number, addon: Addon): Observable<any>{
     
-    const url = this.baseUrl + this.addEndPoint + `${booking.booking_id}`
+    const url = this.baseUrl + this.addAddonEndPoint + `/${booking_id}`
 
     return this.http.put(url, addon);
   }

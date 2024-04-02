@@ -1,0 +1,36 @@
+.bs-container{
+    flex: 1;
+    overflow: auto;
+}
+
+.bs-controls{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+form{
+    position: sticky;
+    top: 0px;
+    background-color: #eaeaea;
+    padding: 8px;
+    border-bottom: 1px solid black;
+}
+
+main{
+    padding: 8px;
+}
+
+.details{
+    margin-bottom: 2px;
+}
+
+.booking-info{
+    font-weight: 600;
+}
+
+.booking-addons-block{
+    padding-left: 48px;
+    display: flex;
+    gap: 8px;
+}

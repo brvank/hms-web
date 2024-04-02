@@ -33,14 +33,22 @@
             Addon
         </div>
 
+        <div 
+            [class.db-tab-button-selected]="dbTabActive === dbTabBookingSearch" 
+            [class.db-tab-button]="dbTabActive !== dbTabBookingSearch" 
+            (click)="tabClicked(dbTabBookingSearch)">
+            Search Booking
+        </div>
+
     </aside>
 
     <section>
 
         <app-booking class="app-models" *ngIf="dbTabActive === dbTabBooking"></app-booking>
         <app-room class="app-models" *ngIf="dbTabActive === dbTabRoom"></app-room>
-        <app-addon class="app-models" *ngIf="dbTabActive === dbTabAddon"></app-addon>
         <app-room-category class="app-models" *ngIf="dbTabActive === dbTabRoomCategory"></app-room-category>
+        <app-addon class="app-models" *ngIf="dbTabActive === dbTabAddon"></app-addon>
+        <app-booking-search class="app-models" *ngIf="dbTabActive === dbTabBookingSearch"></app-booking-search>
 
     </section>
 </main>

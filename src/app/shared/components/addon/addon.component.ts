@@ -32,13 +32,14 @@ export class AddonComponent {
     this.loaderService.showLoading()
     this.addonService.get().subscribe({
       next: (res) => {
+        this.loaderService.hideLoading();
+
         if (res?.data) {
           this.addonService.addons = [];
           for (let i = 0; i < res.data.length; i++) {
             this.addonService.addons.push(res.data[i])
           }
 
-          this.loaderService.hideLoading();
         } else {
           this.notificationService.error('Something went wrong!')
         }

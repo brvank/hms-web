@@ -1,0 +1,103 @@
+<div class="bs-container">
+
+    <form [formGroup]="bsFormGroup">
+        <div class="bs-controls">
+            <label for="bs-search-input">Booking ID</label>
+            <input type="number" id="bs-search-input" formControlName="bookingId">
+            <button [disabled]="!bsFormGroup.valid" (click)="getBooking()"> Search </button>
+        </div>
+    </form>
+
+    <form *ngIf="booking" [formGroup]="bsAddonFormGroup">
+        <div class="bs-controls">
+            <select formControlName="addon">
+                <option value="">--Select Addon--</option>
+                <option *ngFor="let addon of addonService.addons" [value]="addon.addon_id">{{addon.addon_name}} ({{addon.addon_price}})</option>
+            </select>
+            <button [disabled]="!bsAddonFormGroup.valid" (click)="addAddon()"> Add Addon </button>
+        </div>
+    </form>
+
+    <main *ngIf="booking">
+        <div class="details">
+            Booking Id: <span class="booking-info">{{booking.booking_id}}</span>
+        </div>
+        <div class="details">
+            Guest Name: <span class="booking-info">{{booking.guest_name}}</span>
+        </div>
+        <div class="details">
+            Phone Number: <span class="booking-info">{{booking.phone_number}}</span>
+        </div>
+        <div class="details">
+            Check In Date/Time: <span class="booking-info">{{booking.date_time_check_in}}</span>
+        </div>
+        <div class="details">
+            Check Out Date/Time: <span class="booking-info">{{booking.date_time_check_out}}</span>
+        </div>
+        <div class="details">
+            Person Count: <span class="booking-info">{{booking.person_count}}</span>
+        </div>
+        <div class="details">
+            Total Price(excluding Addon Prices): <span class="booking-info">{{booking.total_price}}</span>
+        </div>
+        <div class="details">
+            GST(%) Applied: <span class="booking-info">{{booking.gst}}</span>
+        </div>
+        <div class="details">
+            Amount Paid: <span class="booking-info">{{booking.advance_amount}}</span>
+        </div>
+        <div class="details" *ngIf="room">
+            Room Number: <span class="booking-info">{{room.room_number}}</span>
+        </div>
+
+        <div class="details" *ngIf="bookingAddOn">
+            Addon(s):
+        </div>
+        <div style="padding-left: 32px;" *ngIf="bookingAddOn">
+            <div *ngFor="let item of getKeys(bookingAddOn)">
+                <div class="booking-info">{{item}}</div>
+                <div class="booking-addons-block">
+                    <div class="addon-prices">
+                        <div *ngFor="let price of getKeys(bookingAddOn![item] ?? {})">
+                            {{price}}:
+                        </div>
+                    </div>
+                    <div class="addon-quantities">
+                        <div *ngFor="let quantity of getValues(bookingAddOn![item] ?? {})">
+                            {{quantity}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<!-- 
+
+{
+    "booking_id": 2,
+    "guest_name": "ankit maurya",
+    "phone_number": "9695039218",
+    "date_time_check_in": "2024-04-02T12:00:00",
+    "date_time_check_out": "2024-04-03T12:00:00",
+    "person_count": 1,
+    "room_id": 8,
+    "total_price": 13650,
+    "advance_amount": 5000,
+    "gst": 5,
+    "bookingAddOn": {
+        "booking_id": 2,
+        "booking_addons": {
+            "Maggie": {
+                "80.0": 2
+            },
+            "Aloo Parantha": {
+                "100.0": 1
+            }
+        }
+    },
+}
+ -->

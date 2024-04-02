@@ -34,5 +34,7 @@
 </div>
 
 <div class="bk-paginator">
-    
+    <button [disabled]="bookingService.start - bookingService.size < 0" (click)="prev()"> Prev </button>
+    <div>({{bookingService.start}} - {{bookingService.start + bookingService.size}}) of {{bookingService.total}}</div>
+    <button [disabled]="bookingService.start + bookingService.size >= bookingService.total" (click)="next()"> Next </button>
 </div>
