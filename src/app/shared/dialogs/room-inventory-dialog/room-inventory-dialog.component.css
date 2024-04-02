@@ -1,0 +1,28 @@
+.dialog-container{
+    background-color: white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+header{
+    display: flex;
+    gap: 8px;
+}
+
+header p{
+    flex: 1;
+}
+
+main{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.booking{
+    padding: 4px;
+    border: 1px solid gainsboro;
+    font-weight: 500;
+}

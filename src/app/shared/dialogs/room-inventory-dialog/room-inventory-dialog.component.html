@@ -1,0 +1,17 @@
+<div class="dialog-container">
+
+    <header>
+        <p>
+            Booked Dates for Room {{room?.room_number ?? 'N/A'}}
+        </p>
+
+        <button (click)="closeDialog()">Close</button>
+    </header>
+
+    <main>
+        <div class="booking" *ngFor="let booking of bookings">
+            {{getKey(booking)}}
+        </div>
+    </main>
+
+</div>
