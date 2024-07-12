@@ -34,6 +34,8 @@ export class BookingDialogComponent {
 
   bookingId: number = 0
 
+  noOfDays = 0
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BookingDialogComponent>,
@@ -47,18 +49,35 @@ export class BookingDialogComponent {
       date_time_check_in: new FormControl('', Validators.required),
       date_time_check_out: new FormControl('', Validators.required),
       person_count: new FormControl(null, [Validators.required, Validators.min(0)]),
+      child_count: new FormControl(null, [Validators.required, Validators.min(0)]),
       room_id: new FormControl('', Validators.required),
       total_price: new FormControl(0, Validators.required),
       advance_amount: new FormControl(0, Validators.required),
       gst: new FormControl(0, Validators.required)
     })
 
+    this.bookingFormGroup.get('date_time_check_in')?.valueChanges.subscribe((check_in_date) => {
+      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10), parseInt(this.bookingFormGroup.value.person_count, 10), parseInt(this.bookingFormGroup.value.child_count, 10), check_in_date, this.bookingFormGroup.value.date_time_check_out)
+    })
+
+    this.bookingFormGroup.get('date_time_check_out')?.valueChanges.subscribe((check_out_date) => {
+      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10), parseInt(this.bookingFormGroup.value.person_count, 10), parseInt(this.bookingFormGroup.value.child_count, 10), this.bookingFormGroup.value.date_time_check_in, check_out_date)
+    })
+
     this.bookingFormGroup.get('room_id')?.valueChanges.subscribe((room_id) => {
-      this.updatePrice(parseInt(room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10))
+      this.updatePrice(parseInt(room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10), parseInt(this.bookingFormGroup.value.person_count, 10), parseInt(this.bookingFormGroup.value.child_count, 10), this.bookingFormGroup.value.date_time_check_in, this.bookingFormGroup.value.date_time_check_out)
     })
     
     this.bookingFormGroup.get('gst')?.valueChanges.subscribe((gst) => {
-      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(gst, 10))
+      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(gst, 10), parseInt(this.bookingFormGroup.value.person_count, 10), parseInt(this.bookingFormGroup.value.child_count, 10), this.bookingFormGroup.value.date_time_check_in, this.bookingFormGroup.value.date_time_check_out)
+    })
+    
+    this.bookingFormGroup.get('person_count')?.valueChanges.subscribe((person_count) => {
+      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10), parseInt(person_count, 10), parseInt(this.bookingFormGroup.value.child_count, 10), this.bookingFormGroup.value.date_time_check_in, this.bookingFormGroup.value.date_time_check_out)
+    })
+    
+    this.bookingFormGroup.get('child_count')?.valueChanges.subscribe((child_count) => {
+      this.updatePrice(parseInt(this.bookingFormGroup.value.room_id, 10), parseInt(this.bookingFormGroup.value.gst, 10), parseInt(this.bookingFormGroup.value.person_count, 10), parseInt(child_count, 10), this.bookingFormGroup.value.date_time_check_in, this.bookingFormGroup.value.date_time_check_out)
     })
 
     if (this.data && this.data?.action) {
@@ -75,6 +94,7 @@ export class BookingDialogComponent {
           date_time_check_in: booking.date_time_check_in,
           date_time_check_out: booking.date_time_check_out,
           person_count: booking.person_count,
+          child_count: booking.child_count,
           room_id: booking.room_id,
           total_price: booking.total_price,
           advance_amount: booking.advance_amount,
@@ -96,7 +116,24 @@ export class BookingDialogComponent {
 
   }
 
-  updatePrice(room_id: number, gst: number){
+  updatePrice(room_id: number, gst: number, person_count: number, child_count: number, check_in_date: string, check_out_date: string){
+    try {
+      var date1 = new Date(check_in_date)
+      var date2 = new Date(check_out_date)
+
+      var diff = Math.abs(date1.getTime() - date2.getTime());
+      var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+
+      if(!Number.isNaN(diffDays)){
+        this.noOfDays = diffDays
+      }else{
+        this.noOfDays = 0
+      }
+
+    } catch (error) {
+      console.log(error)
+      
+    }
 
     if(this.timesUpdatedPrice < this.updatePricingSubscribers && !this.actionAdd){
       this.timesUpdatedPrice += 1
@@ -107,6 +144,14 @@ export class BookingDialogComponent {
       gst = 0
     }
 
+    if(Number.isNaN(person_count)){
+      person_count = 0;
+    }
+
+    if(Number.isNaN(child_count)){
+      child_count = 0;
+    }
+
     var room = this.rooms.find(room => room.room_id === room_id)
     var price = 0
     if(room){
@@ -115,6 +160,9 @@ export class BookingDialogComponent {
         price = roomCategory.room_category_price
       }
     }
+
+    price = (price * person_count) + (price * (child_count/2))
+    price = price * this.noOfDays
 
     this.bookingFormGroup.patchValue({
       total_price: price + price * (gst / 100)
@@ -140,6 +188,7 @@ export class BookingDialogComponent {
       date_time_check_in: formValue.date_time_check_in,
       date_time_check_out: formValue.date_time_check_out,
       person_count: formValue.person_count,
+      child_count: formValue.child_count,
       room_id: formValue.room_id,
       total_price: formValue.total_price,
       advance_amount: formValue.advance_amount,
@@ -175,6 +224,7 @@ export class BookingDialogComponent {
       date_time_check_in: formValue.date_time_check_in,
       date_time_check_out: formValue.date_time_check_out,
       person_count: formValue.person_count,
+      child_count: formValue.child_count,
       room_id: formValue.room_id,
       total_price: formValue.total_price,
       advance_amount: formValue.advance_amount,

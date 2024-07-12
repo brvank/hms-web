@@ -5,8 +5,10 @@ export interface Booking{
     date_time_check_in: Date,
     date_time_check_out: Date,
     person_count: number,
+    child_count: number,
     room_id: number,
     total_price: number,
+    addon_price?: number,
     advance_amount: number,
     gst: number
 }
@@ -17,8 +19,10 @@ export interface BookingNoID{
     date_time_check_in: Date,
     date_time_check_out: Date,
     person_count: number,
+    child_count: number,
     room_id: number,
     total_price: number,
+    addon_price?: number,
     advance_amount: number,
     gst: number
 }

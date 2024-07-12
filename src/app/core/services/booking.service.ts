@@ -15,6 +15,7 @@ export class BookingService {
   private addEndPoint = 'api/v1/booking/add'
   private updateEndPoint = 'api/v1/booking/update'
   private addAddonEndPoint = 'api/v1/booking/addOn'
+  private syncAddOnPriceEndPoint = 'api/v1/booking/syncAddOnPrice'
 
   start: number = 0
   size: number = 10
@@ -52,10 +53,21 @@ export class BookingService {
     return this.http.put(url, booking);
   }
 
-  addAddon(booking_id: number, addon: Addon): Observable<any>{
+  addAddon(booking_id: number, addonMap: Map<number, number>): Observable<any>{
     
     const url = this.baseUrl + this.addAddonEndPoint + `/${booking_id}`
 
-    return this.http.put(url, addon);
+    const addonObj: { [key: number]: number } = {};
+    addonMap.forEach((value, key) => {
+      addonObj[key] = value;
+    });
+
+    return this.http.put(url, addonObj);
+  }
+
+  syncAddOnPrice(booking_id: number): Observable<any>{
+    const url = this.baseUrl + this.syncAddOnPriceEndPoint + `/${booking_id}`
+
+    return this.http.put(url, {})
   }
 }

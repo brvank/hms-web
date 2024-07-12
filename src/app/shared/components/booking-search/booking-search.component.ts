@@ -39,7 +39,8 @@ export class BookingSearchComponent {
     })
 
     this.bsAddonFormGroup = new FormGroup({
-      addon: new FormControl('', Validators.required)
+      addon: new FormControl('', Validators.required),
+      quantity: new FormControl(null, [Validators.required, Validators.min(0)])
     })
   }
 
@@ -70,11 +71,34 @@ export class BookingSearchComponent {
     })
   }
 
+  syncAddOnPrice(){
+    this.loaderService.showLoading()
+
+    this.bookingService.syncAddOnPrice(this.booking!.booking_id).subscribe({
+      next: (res) => {
+        this.loaderService.hideLoading()
+        this.notificationService.success(res.message)
+        this.getBooking()
+      },
+      error: (err) => {
+        this.loaderService.hideLoading();
+        if (err?.error?.message) {
+          this.notificationService.error(err.error.message)
+        } else {
+          this.notificationService.error("something went wrong!!!")
+        }
+      }
+    })
+  }
+
   addAddon(){
     this.loaderService.showLoading()
 
     var addonData: Addon = this.addonService.addons.find(ele => ele.addon_id === parseInt(this.bsAddonFormGroup.value.addon))!
-    this.bookingService.addAddon(this.booking!.booking_id, addonData).subscribe({
+    var quantity = this.bsAddonFormGroup.value.quantity
+    var addonMap = new Map<number, number>()
+    addonMap.set(addonData.addon_id, quantity)
+    this.bookingService.addAddon(this.booking!.booking_id, addonMap).subscribe({
       next: (res) => {
         this.loaderService.hideLoading()
         this.notificationService.success(res.message)
